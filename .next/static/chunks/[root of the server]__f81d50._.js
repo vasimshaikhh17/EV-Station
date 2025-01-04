@@ -2058,10 +2058,16 @@ const normalizePathTrailingSlash = (path)=>{
         return path;
     }
     const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-    if ("TURBOPACK compile-time falsy", 0) {
-        "TURBOPACK unreachable";
+    if ("TURBOPACK compile-time truthy", 1) {
+        if (/\.[^/]+\/?$/.test(pathname)) {
+            return "" + (0, _removetrailingslash.removeTrailingSlash)(pathname) + query + hash;
+        } else if (pathname.endsWith('/')) {
+            return "" + pathname + query + hash;
+        } else {
+            return pathname + "/" + query + hash;
+        }
     }
-    return "" + (0, _removetrailingslash.removeTrailingSlash)(pathname) + query + hash;
+    "TURBOPACK unreachable";
 };
 if ((typeof exports.default === 'function' || typeof exports.default === 'object' && exports.default !== null) && typeof exports.default.__esModule === 'undefined') {
     Object.defineProperty(exports.default, '__esModule', {
@@ -5945,7 +5951,7 @@ function resolveRewrites(asPath, pages, rewrites, query, resolveHref, locales) {
     let fsPathname = (0, _removetrailingslash.removeTrailingSlash)((0, _normalizelocalepath.normalizeLocalePath)((0, _removebasepath.removeBasePath)(parsedAs.pathname), locales).pathname);
     let resolvedHref;
     const handleRewrite = (rewrite)=>{
-        const matcher = (0, _pathmatch.getPathMatch)(rewrite.source + (("TURBOPACK compile-time falsy", 0) ? ("TURBOPACK unreachable", undefined) : ''), {
+        const matcher = (0, _pathmatch.getPathMatch)(rewrite.source + (("TURBOPACK compile-time truthy", 1) ? '(/)?' : ("TURBOPACK unreachable", undefined)), {
             removeUnnamedParams: true,
             strict: true
         });
@@ -6733,7 +6739,7 @@ function getMiddlewareData(source, response, options) {
         i18n: {
             locales: options.router.locales
         },
-        trailingSlash: Boolean(("TURBOPACK compile-time value", false))
+        trailingSlash: Boolean(("TURBOPACK compile-time value", true))
     };
     const rewriteHeader = response.headers.get('x-nextjs-rewrite');
     let rewriteTarget = rewriteHeader || response.headers.get('x-nextjs-matched-path');
@@ -7081,7 +7087,7 @@ class Router {
                     });
                     return new Promise(()=>{});
                 }
-                const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":3,"errorRate":0.0001,"numBits":58,"numHashes":14,"bitArray":[1,1,1,0,0,1,1,0,1,0,1,1,1,1,0,1,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,1,0,0,1,1,1,0,1,0,1,0,0,1,1,1,0,0,1,1,1,1,1,0]}'));
+                const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":24,"errorRate":0.0001,"numBits":461,"numHashes":14,"bitArray":[1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,1,0,0,1,0,1,0,0,0,1,0,0,1,1,1,1,0,1,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,1,0,1,0,1,0,0,0,1,1,0,0,1,0,0,0,0,0,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,0,0,1,0,0,1,0,1,1,0,0,1,1,1,0,1,1,0,1,1,1,1,0,0,1,1,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,1,1,1,0,1,0,0,0,0,0,1,0,0,1,0,1,0,1,0,0,0,0,0,1,1,1,1,0,1,1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,0,1,0,0,1,1,1,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,0,0,0,1,1,0,0,1,1,1,1,1,0,1,0,0,0,0,1,1,1,0,0,1,0,0,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,0,0,0,1,1,0,1,1,1,0,0,1,0,1,0,0,1,0,1,1,0,1,1,0,0,1,0,1,1,1,1,0,1,0,0,1,0,1,1,1,0,0,1,1,1,1,0,0,1,0,1,1,1,1,0,1,0,0,0,1,1,0,0,1,0,1,1,1,1,1,1,0,0,1,1,0,1,1,1,0,0,0,1,0,0,1,1,1,0,1,1,0,1,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,0,1,1,1,0,1,1,1,1,1,1,0,1,0,0,1,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,1,0]}'));
                 if (!staticFilterData && routerFilterSValue) {
                     staticFilterData = routerFilterSValue ? routerFilterSValue : undefined;
                 }
@@ -18823,7 +18829,7 @@ function AppContainer(param) {
                             children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_headmanagercontextsharedruntime.HeadManagerContext.Provider, {
                                 value: headManager,
                                 children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_imageconfigcontextsharedruntime.ImageConfigContext.Provider, {
-                                    value: ("TURBOPACK compile-time value", JSON.parse('{"deviceSizes":[640,750,828,1080,1200,1920,2048,3840],"imageSizes":[16,32,48,64,96,128,256,384],"path":"/_next/image","loader":"default","dangerouslyAllowSVG":false,"unoptimized":false,"domains":[],"remotePatterns":[]}')),
+                                    value: ("TURBOPACK compile-time value", JSON.parse('{"deviceSizes":[640,750,828,1080,1200,1920,2048,3840],"imageSizes":[16,32,48,64,96,128,256,384],"path":"/_next/image/","loader":"default","dangerouslyAllowSVG":false,"unoptimized":true,"domains":[],"remotePatterns":[],"output":"export"}')),
                                     children: children
                                 })
                             })
